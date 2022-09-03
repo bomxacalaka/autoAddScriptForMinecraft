@@ -7,9 +7,9 @@ import os
 from random import Random, random
 
 #root path
-path = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main'
+path = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main'
 #item java class path
-itemClassPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/jorge/modlearning/item'
+itemClassPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/USER/modlearning/item'
 
 
 def registerItem(line, before, file):
@@ -132,10 +132,10 @@ def getInputs(newItemName): #Gets all the inputs for the files such as the type,
 
 
 before = 'IEventBus '
-javaClassPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/jorge/modlearning/item/temp.java'
-jsonEnPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/lang/'
-jsonModelPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/models/item/'
-pngPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/textures/item/'
+javaClassPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/USER/modlearning/item/temp.java'
+jsonEnPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/lang/'
+jsonModelPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/models/item/'
+pngPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/textures/item/'
 
 allPngFiles = getFilesInFolder(pngPath)
 allJsonModelsFiles = getFilesInFolder(jsonModelPath)

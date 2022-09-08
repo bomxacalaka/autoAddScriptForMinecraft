@@ -6,10 +6,34 @@
 import os
 from random import Random, random
 
-#root path
-path = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main'
-#item java class path
-itemClassPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/USER/modlearning/item'
+
+
+file = "profile1.0.txt" # local file to save/load paths and preferences
+
+
+# save profile(as a dict) to file
+def saveProf(content):
+    open(file, 'a').close()
+    with open(file, 'w') as f: # save changes
+        for i in content:
+            f.write(i + '=' + content[i] + '\n')
+
+
+# return content of file as dict
+def openProf(): 
+    a = {}
+    l = []
+    with open(file, 'r') as f: 
+        l = f.read().splitlines()
+        for i in l:
+            a[i.split('=')[0]] = i.split('=')[1]
+    return a
+
+#modify file content
+def changeProf(key, value):
+    a = openProf()
+    a[key] = value
+    saveProf(a)
 
 
 def registerItem(line, before, file):
@@ -60,33 +84,61 @@ def getFoldersInFolder(folder):
     return folders
 
 
-a = getFilesInFolder(itemClassPath)
-if False:
-    for a1 in a:
-        if a1 == "ModItems.java":
-            a = a1
-    print(a)
-    jva = open(itemClassPath + '/' + a, 'r')
-    newFile = open(itemClassPath + '/' + 'temp.java', 'w')
-    l = jva.readlines()
+# returns profile dict if it exists or creates it from user input
+def setup():
+    try:
+        a = openProf()
+        print("Profile loaded\n")
+    except:
+        print("No profile found, creating new one\n")
+        a={}
+        a["before"] = input("The word you wish your item be added before the line the word is located? (e.g: ) ")
+        a["javaClassPath"] = input("What is the path to your java class? ")
+        a["jsonEnPath"] = input("What is the path to your en_us.json? ")
+        a["jsonModelPath"] = input("What is the path to your json model? ")
+        a["pngPath"] = input("What is the path to your textures? ")
+        print("Profile created and saved\n")
+        changeProf(a)
 
-    i2 = 0
-    for i in l:
-        if 'ModItems' in i:
-            print("found it")
-            print(i)
-            i = 'public class temp {\n'
-            
-        newFile.write(i)
-        i2 += 1
-
-    newFile.close()
-    jva.close()
 
 def getInputs(newItemName): #Gets all the inputs for the files such as the type, tier, attack damage, attack speed, etc
 
+    questions = {"type": "What is the type of the item? (sword, pickaxe, etc) ",
+     "tier": "What is the tier of the item? (wood, stone, etc) ",
+    "attackDamage": "What is the attack damage of the item? ",
+    "attackSpeed": "What is the attack speed of the item? ",
+     "durability": "What is the durability of the item? ",
+      "miningSpeed": "What is the mining speed of the item? ",
+       "enchantability": "What is the enchantability of the item? ",
+        "rarity": "What is the rarity of the item? (common, uncommon, etc) ",
+         "repairMaterial": "What is the repair material of the item? (ingotIron, etc) ",
+          "isFood": "Is the item food? (y/n) ",
+           "foodPoints": "How many food points does the item give? ",
+            "saturation": "How much saturation does the item give? ",
+             "effect": "Does the item give an effect? (y/n) ",
+              "effectName": "What is the effect name? (speed, etc) ",
+               "effectDuration": "How long does the effect last? ",
+                "effectAmplifier": "What is the effect amplifier? ",
+                 "effectProbability": "What is the effect probability? ",
+                  "effectIsAmbient": "Is the effect ambient? (y/n) ",
+                   "effectShowParticles": "Does the effect show particles? (y/n) ",
+                   "effectShowIcon": "Does the effect show icon? (y/n) ",
+                    "effectIsInstant": "Is the effect instant? (y/n) ",
+                     "effectIsPotion": "Is the effect a potion? (y/n) ",
+                      "effectIsBeneficial": "Is the effect beneficial? (y/n) ",
+                       "effectIsCurativeItem": "Is the effect a curative item? (y/n) ",
+                        "effectIsBeneficial": "Is the effect beneficial? (y/n) ",
+                         "effectIsCurativeItem": "Is the effect a curative item? (y/n) ",
+                          "effectIsBeneficial": "Is the effect beneficial? (y/n) ",
+                           "effectIsCurativeItem": "Is the effect a curative item? (y/n) ",
+                            "effectIsBeneficial": "Is the effect beneficial? (y/n) ",
+                             "effectIsCurativeItem": "Is the effect a curative item? (y/n) ",
+                              "effectIsBeneficial": "Is the"}
+
     print(f'Adding ---> {newItemName} <--- to the mod')
+
     itemOrPickOrSwordItem = input("Type of item(Blank for 1)? (item(1), pickaxe(2), SwordItem(3)): ") or "1"
+
 
     if itemOrPickOrSwordItem == "Item" or itemOrPickOrSwordItem == "1":
         typeOfItem = "Item"
@@ -131,33 +183,80 @@ def getInputs(newItemName): #Gets all the inputs for the files such as the type,
         new {typeOfItem}({tierOfItem}, {attackDmg}, {attackSpeed}, (new Item.Properties()).tab({tab})));"""
 
 
-before = 'IEventBus '
-javaClassPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/USER/modlearning/item/temp.java'
-jsonEnPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/lang/'
-jsonModelPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/models/item/'
-pngPath = 'C:/Users/USER/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/textures/item/'
+def addBlock():  # ADDED BY COPILOT, STILL NEEDS WORK AND TESTING
+    newItemName = "new_block"
+    typeOfItem = "Block"
+    tab = "CreativeModeTab.TAB_BUILDING_BLOCKS"
+
+    tab = input("Enter the tab you want to add it to(Black for default): \ne.g:\nCreativeModeTab.TAB_BUILDING_BLOCKS \n") or tab
+    newItemName = input(f"Enter the name of the new item(Blank for {newItemName}): ").replace(' ', '_') or newItemName
+
+    return f"""    public static final RegistryObject<Block> {newItemName.upper()} = BLOCKS.register("{newItemName}",\n() -> 
+        new {typeOfItem}(Block.Properties.of(Material.STONE).strength(5.0F, 6.0F)));"""
+
+
+def getJavaLineForItem(item):
+    """    public static final RegistryObject<Item> ZIRCON  = ITEMS.register("zircon",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TUTORIAL_TAB)));"""
+
+    """    public static final RegistryObject<Item> DAGGER = ITEMS.register("dagger",
+            () -> new SwordItem(ModTiers.ZIRCON, 10, 5F, (new Item.Properties()).
+                    tab(ModCreativeModeTab.TUTORIAL_TAB).fireResistant().
+                    food(new FoodProperties.Builder().nutrition(3).alwaysEat().saturationMod(8f).build())));"""
+
+    """    public static final RegistryObject<Item> GOLDEN_PICKAXE_20K = ITEMS.register("20kgoldpick",
+            () -> new PickaxeItem(Tiers.GOLD, 1, -2.8F, (new Item.Properties()).tab(ModCreativeModeTab.TUTORIAL_TAB)));"""
+
+    """{ITEM NAME}_{ITEM TYPE}_{LEVEL}_{USES}_{SPEED}_{ATTACK DAMAGE BONUS}_
+        {ENCHANTMENT VALUE}_{TAG}_{REPAIR INGREDIENT}_{ATTACK DAMAGE}_{SPEED}_
+        {PROPERTIES}"""
+
+
+    properties = []
+    if item["properties"]:
+        for prop in item["properties"]:
+            properties.append(f'.{prop}')
+
+    return f"""    public static final ForgeTier {item["item name"].upper()} = new ForgeTier({item["level"]}, {item["uses"]}, {item["speed"]}f,
+        {item["attack damage bonus"]}f, {item["enchantment value"]}, BlockTags.{item["tag"]},
+        () -> Ingredient.of(ZIRCON.get()));
+
+        public static final RegistryObject<Item> {item["item name"].upper()}  = {item["item type"]}.register("{item["item name"].lower()}",
+        () -> new {item["item name"].upper()}(new Item.Properties(){properties}));"""
+
+    
+
+
+before = 'register'
+javaClassPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/jorge/modlearning/item/temp.java'
+jsonEnPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/lang/'
+jsonModelPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/models/item/'
+pngPath = 'C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/textures/item/'
 
 allPngFiles = getFilesInFolder(pngPath)
 allJsonModelsFiles = getFilesInFolder(jsonModelPath)
 allJsonEnFiles = getFilesInFolder(jsonEnPath)
 
 
-for allPngFile in allPngFiles:
-    jsonEnFile = ''.join(allJsonModelsFiles)
-    pngFile = allPngFile.replace('.png', '')
-    if not pngFile in jsonEnFile:
-        line = getInputs(pngFile)
-        registerItem(line, before, javaClassPath)
-        print(f'Added {pngFile} to {javaClassPath}')
-        addJsonModel(pngFile, jsonModelPath)
-        print(f'Added {pngFile} to {jsonModelPath}')
-        addJsonEn(pngFile, jsonEnPath)
-        print(f'Added {pngFile} to {jsonEnPath}')
-        print(f'Added {pngFile} to the mod')
-    else:
-        print(f'{allPngFile} already in the mod')
+def addNewItem():
+    for allPngFile in allPngFiles:
+        jsonEnFile = ''.join(allJsonModelsFiles)
+        pngFile = allPngFile.replace('.png', '')
+        if not pngFile in jsonEnFile:
+            line = getInputs(pngFile)
+            registerItem(line, before, javaClassPath)
+            print(f'Added {pngFile} to {javaClassPath}')
+            addJsonModel(pngFile, jsonModelPath)
+            print(f'Added {pngFile} to {jsonModelPath}')
+            addJsonEn(pngFile, jsonEnPath)
+            print(f'Added {pngFile} to {jsonEnPath}')
+            print(f'Added {pngFile} to the mod')
+        else:
+            print(f'{allPngFile} already in the mod')
 
 
+if __name__ == "__main__":
+    setup()
 
 """
 TO DO:

@@ -1,0 +1,7 @@
+before=IEventBus 
+itemJavaClassPath=C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/jorge/modlearning/item/ModItems.java
+blockJavaClassPath=C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/java/net/jorge/modlearning/block/ModBlocks.java
+jsonEnPath=C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/lang/
+jsonModelPath=C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/models/item/
+pngPath=C:/Users/jorge/Documents/makingModLearning/forgeproject1.19.2/src/main/resources/assets/modlearning/textures/item/
+pngSource=C:/Users/jorge/Documents/pics/
